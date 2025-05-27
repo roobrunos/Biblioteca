@@ -1,8 +1,10 @@
 package com.rodrigo.bibliotecan1.controller;
 
 
-import com.rodrigo.bibliotecan1.Emprestimo;
+import com.rodrigo.bibliotecan1.modelo.Emprestimo;
 import com.rodrigo.bibliotecan1.repository.EmprestimoRepository;
+import com.rodrigo.bibliotecan1.service.EmprestimoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

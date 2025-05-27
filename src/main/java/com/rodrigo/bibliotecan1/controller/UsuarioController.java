@@ -1,53 +1,46 @@
 package com.rodrigo.bibliotecan1.controller;
 
-import com.rodrigo.bibliotecan1.Usuario;
-import com.rodrigo.bibliotecan1.repository.UsuarioRepository;
+import com.rodrigo.bibliotecan1.modelo.Usuario;
+import com.rodrigo.bibliotecan1.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
+
     @GetMapping
     public List<Usuario> listar() {
-        return usuarioRepository.findAll(  );
+        return usuarioService.listarTodos();
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id){
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-        return usuario.map(ResponseEntity:: ok)
-                      .orElseGet(  () -> ResponseEntity.notFound().build());
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+        return usuarioService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
     @PostMapping
-    public Usuario criar(@RequestBody Usuario usuario){
-        return usuarioRepository.save(usuario);
+    public Usuario criar(@RequestBody Usuario usuario) {
+        return usuarioService.criar(usuario);
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado){
-        return usuarioRepository.findById(id).map(usuario -> {
-            usuario.setNome(usuarioAtualizado.getNome());
-            usuario.setCurso(usuarioAtualizado.getCurso());
-            usuario.setMatricula(usuarioAtualizado.getMatricula());
-
-            return ResponseEntity.ok(usuarioRepository.save(usuario));
-        }).orElseGet(() -> ResponseEntity.notFound().build());
-
+    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
+        return usuarioService.atualizar(id, usuarioAtualizado);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id){
-        if (usuarioRepository.existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-
-        }
-
-        return ResponseEntity.notFound().build();
-
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        return usuarioService.deletar(id);
     }
 }
+
 

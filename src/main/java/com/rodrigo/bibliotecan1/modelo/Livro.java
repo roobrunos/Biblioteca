@@ -1,4 +1,4 @@
-package com.rodrigo.bibliotecan1;
+package com.rodrigo.bibliotecan1.modelo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,7 +39,7 @@ public class Livro {
     public int getAnoPublicacao() { 
         
         return anoPublicacao; }
-        
+
     public void setAnoPublicacao(int anoPublicacao) { 
         
         this.anoPublicacao = anoPublicacao; 

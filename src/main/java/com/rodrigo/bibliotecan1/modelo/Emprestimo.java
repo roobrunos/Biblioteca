@@ -1,6 +1,7 @@
-package com.rodrigo.bibliotecan1;
+package com.rodrigo.bibliotecan1.modelo;
 
 import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
